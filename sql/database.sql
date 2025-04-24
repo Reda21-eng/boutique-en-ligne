@@ -1,4 +1,4 @@
-CREATE DATABASE :neko-manga;
+CREATE DATABASE neko-manga;
 
 USE neko-manga;
 
