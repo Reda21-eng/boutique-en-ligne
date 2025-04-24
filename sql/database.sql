@@ -1,6 +1,6 @@
-CREATE DATABASE manga-meow;
+CREATE DATABASE neko-manga;
 
-USE manga-meow;
+USE neko-manga;
 
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
