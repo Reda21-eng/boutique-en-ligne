@@ -1,13 +1,13 @@
 class MangaAPI {
     constructor() {
-        this.baseUrl = 'https://api.jikan.moe/v4';
+        this.baseUrl = 'Controller/api.php';
     }
 
     async getFeaturedManga() {
         try {
-            const response = await fetch(`${this.baseUrl}/top/manga?filter=bypopularity&limit=8`);
+            const response = await fetch(`${this.baseUrl}?action=featured`);
             const data = await response.json();
-            return data.data;
+            return data;
         } catch (error) {
             console.error('Error fetching featured manga:', error);
             return [];
@@ -16,9 +16,9 @@ class MangaAPI {
 
     async searchManga(query) {
         try {
-            const response = await fetch(`${this.baseUrl}/manga?q=${encodeURIComponent(query)}&limit=20`);
+            const response = await fetch(`${this.baseUrl}?action=search&query=${encodeURIComponent(query)}`);
             const data = await response.json();
-            return data.data;
+            return data;
         } catch (error) {
             console.error('Error searching manga:', error);
             return [];
@@ -27,9 +27,9 @@ class MangaAPI {
 
     async getMangaDetails(id) {
         try {
-            const response = await fetch(`${this.baseUrl}/manga/${id}/full`);
+            const response = await fetch(`${this.baseUrl}?action=details&id=${id}`);
             const data = await response.json();
-            return data.data;
+            return data;
         } catch (error) {
             console.error('Error fetching manga details:', error);
             return null;
@@ -42,7 +42,7 @@ function createMangaCard(manga) {
     const price = (Math.random() * (30 - 10) + 10).toFixed(2); // Random price between 10 and 30
     return `
         <div class="manga-card" data-id="${manga.mal_id}">
-            <img src="${manga.images.jpg.image_url}" alt="${manga.title}">
+            <img src="${manga.image_url}" alt="${manga.title}">
             <div class="manga-info">
                 <h3 class="manga-title">${manga.title}</h3>
                 <p class="manga-price">$${price}</p>
@@ -92,7 +92,7 @@ function addToCart(mangaId, title, price) {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartLink = document.querySelector('.nav-links a[href="php/cart.php"]');
+    const cartLink = document.querySelector('.nav-links a[href="Controller/cart.php"]');
     if (cartLink) {
         cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${totalItems})`;
     }
@@ -102,4 +102,4 @@ function updateCartCount() {
 document.addEventListener('DOMContentLoaded', () => {
     loadFeaturedManga();
     updateCartCount();
-}); 
+});
