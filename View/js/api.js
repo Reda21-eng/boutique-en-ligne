@@ -1,13 +1,13 @@
 class MangaAPI {
     constructor() {
-        this.baseUrl = '../Controller/manga_endpoint.php'; // Endpoint local pour récupérer les mangas
+        this.baseUrl = 'https://api.jikan.moe/v4';
     }
 
     async getFeaturedManga() {
         try {
-            const response = await fetch(`${this.baseUrl}?action=featured`);
+            const response = await fetch(`${this.baseUrl}/top/manga?filter=bypopularity&limit=8`);
             const data = await response.json();
-            return data;
+            return data.data;
         } catch (error) {
             console.error('Error fetching featured manga:', error);
             return [];
@@ -16,9 +16,9 @@ class MangaAPI {
 
     async searchManga(query) {
         try {
-            const response = await fetch(`${this.baseUrl}?action=search&query=${encodeURIComponent(query)}`);
+            const response = await fetch(`${this.baseUrl}/manga?q=${encodeURIComponent(query)}&limit=20`);
             const data = await response.json();
-            return data;
+            return data.data;
         } catch (error) {
             console.error('Error searching manga:', error);
             return [];
@@ -27,9 +27,9 @@ class MangaAPI {
 
     async getMangaDetails(id) {
         try {
-            const response = await fetch(`${this.baseUrl}?action=details&id=${id}`);
+            const response = await fetch(`${this.baseUrl}/manga/${id}/full`);
             const data = await response.json();
-            return data;
+            return data.data;
         } catch (error) {
             console.error('Error fetching manga details:', error);
             return null;
@@ -102,4 +102,4 @@ function updateCartCount() {
 document.addEventListener('DOMContentLoaded', () => {
     loadFeaturedManga();
     updateCartCount();
-});
+}); 

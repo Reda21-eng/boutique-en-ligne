@@ -51,23 +51,8 @@ CREATE TABLE IF NOT EXISTS user_addresses (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Manga table
-CREATE TABLE IF NOT EXISTS mangas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    mal_id INT UNIQUE NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    members INT NOT NULL,
-    score DECIMAL(3,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create index for faster search
-CREATE INDEX idx_manga_title ON mangas(title);
-
 -- Create indexes
 CREATE INDEX idx_user_email ON users(email);
 CREATE INDEX idx_order_user ON orders(user_id);
 CREATE INDEX idx_order_items_order ON order_items(order_id);
-CREATE INDEX idx_user_addresses_user ON user_addresses(user_id);
+CREATE INDEX idx_user_addresses_user ON user_addresses(user_id); 
