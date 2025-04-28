@@ -12,16 +12,6 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Mangas table (new table to store manga data)
-CREATE TABLE IF NOT EXISTS mangas (
-    mal_id INT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255) NOT NULL,
-    synopsis TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
 -- Orders table
 CREATE TABLE IF NOT EXISTS orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,5 +55,18 @@ CREATE TABLE IF NOT EXISTS user_addresses (
 CREATE INDEX idx_user_email ON users(email);
 CREATE INDEX idx_order_user ON orders(user_id);
 CREATE INDEX idx_order_items_order ON order_items(order_id);
-CREATE INDEX idx_user_addresses_user ON user_addresses(user_id);
-CREATE INDEX idx_manga_id ON mangas(mal_id);
+CREATE INDEX idx_user_addresses_user ON user_addresses(user_id); 
+-- Add mangas table
+CREATE TABLE IF NOT EXISTS mangas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    mal_id INT UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255),
+    synopsis TEXT,
+    price DECIMAL(10,2),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create index for mal_id
+CREATE INDEX idx_manga_mal_id ON mangas(mal_id);
