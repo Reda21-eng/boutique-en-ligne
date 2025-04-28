@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manga Meow - Your Favorite Manga Store</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="View/css/style.css">
+    <link rel="stylesheet" href="View/css/responsive.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -22,16 +22,16 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="php/catalog.php">Catalog</a></li>
-                <li><a href="php/cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="Controller/catalog.php">Catalog</a></li>
+                <li><a href="Controller/cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                 <?php
                 session_start();
                 if(isset($_SESSION['user_id'])) {
-                    echo '<li><a href="php/profile.php"><i class="fas fa-user"></i> Profile</a></li>';
-                    echo '<li><a href="php/logout.php">Logout</a></li>';
+                    echo '<li><a href="Controller/profile.php"><i class="fas fa-user"></i> Profile</a></li>';
+                    echo '<li><a href="Controller/logout.php">Logout</a></li>';
                 } else {
-                    echo '<li><a href="php/login.php">Login</a></li>';
-                    echo '<li><a href="php/register.php">Register</a></li>';
+                    echo '<li><a href="Controller/login.php">Login</a></li>';
+                    echo '<li><a href="Controller/register.php">Register</a></li>';
                 }
                 ?>
             </ul>
@@ -43,7 +43,7 @@
             <div class="hero-content">
                 <h2>Welcome to Manga Meow</h2>
                 <p>Discover your next favorite manga series!</p>
-                <a href="php/catalog.php" class="cta-button">Browse Catalog</a>
+                <a href="Controller/catalog.php" class="cta-button">Browse Catalog</a>
             </div>
         </section>
 
@@ -83,7 +83,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/api.js"></script>
+    <script src="View/js/main.js"></script>
+    <script src="View/js/api.js"></script>
 </body>
-</html> 
+</html>

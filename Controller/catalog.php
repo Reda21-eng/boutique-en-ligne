@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../config/database.php';
+require_once '../Model/database.php';
 
 $is_logged_in = isset($_SESSION['user_id']);
 ?>
@@ -10,8 +10,8 @@ $is_logged_in = isset($_SESSION['user_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manga Catalog - Manga Meow</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../View/css/style.css">
+    <link rel="stylesheet" href="../View/css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -27,14 +27,14 @@ $is_logged_in = isset($_SESSION['user_id']);
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="../index.php">Home</a></li>
-                <li><a href="catalog.php" class="active">Catalog</a></li>
-                <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="../Controller/catalog.php" class="active">Catalog</a></li>
+                <li><a href="../Controller/cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                 <?php if ($is_logged_in): ?>
-                    <li><a href="profile.php"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="../Controller/profile.php"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="../Controller/logout.php">Logout</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
+                    <li><a href="../Controller/login.php">Login</a></li>
+                    <li><a href="../Controller/register.php">Register</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -102,8 +102,8 @@ $is_logged_in = isset($_SESSION['user_id']);
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/api.js"></script>
+    <script src="../View/js/main.js"></script>
+    <script src="../View/js/api.js"></script>
     <script>
         let currentPage = 1;
         let currentSearch = '';
@@ -294,4 +294,4 @@ $is_logged_in = isset($_SESSION['user_id']);
         }
     </style>
 </body>
-</html> 
+</html>
