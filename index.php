@@ -44,6 +44,7 @@
                 <h2>Welcome to Manga Meow</h2>
                 <p>Discover your next favorite manga series!</p>
                 <a href="Controller/catalog.php" class="cta-button">Browse Catalog</a>
+                <a href 
             </div>
         </section>
 
