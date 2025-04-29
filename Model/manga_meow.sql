@@ -80,3 +80,6 @@ CREATE TABLE IF NOT EXISTS admins (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+-- Ajouter une colonne role à la table users
+ALTER TABLE users ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user';

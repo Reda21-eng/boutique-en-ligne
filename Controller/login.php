@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            // Ajouter le rôle de l'utilisateur à la session
+            $_SESSION['role'] = $user['role'];
             header("Location: ../index.php");
             exit();
         } else {

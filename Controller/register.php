@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     // Create new user
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+                    $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')");
                     
                     try {
                         $stmt->execute([$username, $email, $hashed_password]);
