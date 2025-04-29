@@ -1,7 +1,7 @@
 <?php
 session_start();
 echo __DIR__;
-require_once './Model/database.php';
+require_once '../Model/database.php';
 
 // Vérifier si l'utilisateur est administrateur
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
