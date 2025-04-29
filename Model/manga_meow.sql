@@ -70,3 +70,13 @@ CREATE TABLE IF NOT EXISTS mangas (
 
 -- Create index for mal_id
 CREATE INDEX idx_manga_mal_id ON mangas(mal_id);
+
+-- Admins table
+CREATE TABLE IF NOT EXISTS admins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    role ENUM('admin', 'superadmin') DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

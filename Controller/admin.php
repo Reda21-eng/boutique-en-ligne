@@ -1,12 +1,13 @@
 <?php
 session_start();
-require_once '../Model/database.php';
+echo __DIR__;
+require_once './Model/database.php';
 
-// Vérifier si l'utilisateur est administrateur
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: ../index.php');
-    exit();
-}
+// // Vérifier si l'utilisateur est administrateur
+// if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+//     header('Location: ../index.php');
+//     exit();
+// }
 
 $database = new Database();
 $db = $database->getConnection();
