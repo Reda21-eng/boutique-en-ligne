@@ -56,6 +56,26 @@ require_once 'autoload.php';
                 <!-- Manga items will be loaded here via JavaScript -->
             </div>
         </section>
+
+        <section class="payment">
+            <h2>Complete Your Payment</h2>
+            <form id="paymentForm">
+                <label for="cardholderName">Cardholder Name</label>
+                <input type="text" id="cardholderName" name="cardholderName" required>
+
+                <label for="cardNumber">Card Number</label>
+                <div id="cardNumber" class="stripe-input"></div>
+
+                <label for="expiry">Expiry Date</label>
+                <div id="expiry" class="stripe-input"></div>
+
+                <label for="cvc">CVC</label>
+                <div id="cvc" class="stripe-input"></div>
+
+                <button type="submit" id="submitPayment">Pay Now</button>
+            </form>
+        </section>
+
     </main>
 
     <footer>
@@ -88,5 +108,52 @@ require_once 'autoload.php';
 
     <script src="View/js/main.js"></script>
     <script src="View/js/api.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('votre_cle_publiable');
+        const elements = stripe.elements();
+
+        const cardNumber = elements.create('cardNumber');
+        cardNumber.mount('#cardNumber');
+
+        const cardExpiry = elements.create('cardExpiry');
+        cardExpiry.mount('#expiry');
+
+        const cardCvc = elements.create('cardCvc');
+        cardCvc.mount('#cvc');
+
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardNumber,
+                billing_details: {
+                    name: document.getElementById('cardholderName').value,
+                },
+            });
+
+            if (error) {
+                alert(error.message);
+            } else {
+                const response = await fetch('Controller/payment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        payment_method: paymentMethod.id,
+                        amount: 5000, // Exemple : 50.00 USD
+                    }),
+                });
+
+                const result = await response.json();
+                if (result.status === 'success') {
+                    alert('Payment successful!');
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

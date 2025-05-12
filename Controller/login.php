@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redirection en fonction du rôle
             if ($user['role'] === 'admin') {
-                header("Location: admin.php");
+                header("Location: admin.php"); // Redirection vers le tableau admin
             } else {
                 header("Location: ../index.php");
             }

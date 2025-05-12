@@ -1,0 +1,15 @@
+{
+    "name": "fancyapps/fancybox",
+    "type": "component",
+    "require": {
+        "robloach/component-installer": "*",
+        "stripe/stripe-php": "*"
+    },
+    "extra": {
+        "component": {
+            "files": [
+                "source/*"
+            ]
+        }
+    }
+}

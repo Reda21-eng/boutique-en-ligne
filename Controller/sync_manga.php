@@ -14,12 +14,13 @@ class MangaSync {
         try {
             // Appel API
             $url = "{$this->baseUrl}/top/manga?filter=bypopularity&limit=8";
-            $ch = curl_init();
+            $ch = curl_init(); // Initialisation de cURL
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
             $response = curl_exec($ch);
-            if (curl_errno($ch)) {
+
+            if (curl_errno($ch)) { // Vérification des erreurs après l'exécution
                 throw new Exception(curl_error($ch));
             }
             curl_close($ch);

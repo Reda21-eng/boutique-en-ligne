@@ -482,4 +482,23 @@ footer {
 .loading {
     opacity: 0.7;
     cursor: not-allowed;
-} 
+}
+
+header {
+    position: relative;
+    z-index: 1000;
+}
+
+main.checkout-page {
+    margin-top: 80px; /* Ajout d'un espacement pour éviter que le contenu soit caché par la barre de navigation */
+}
+
+/* Style spécifique pour la page checkout */
+body.checkout .main-nav {
+    position: static;
+    width: 100%;
+}
+
+body.checkout main {
+    margin-top: 0;
+}
