@@ -1,5 +1,7 @@
 <?php
 require_once 'autoload.php';
+$config = require 'config.php'; // Charger la configuration
+$stripePublishableKey = $config['stripe']['publishable_key']; // Récupérer la clé publique
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,24 +59,6 @@ require_once 'autoload.php';
             </div>
         </section>
 
-        <section class="payment">
-            <h2>Complete Your Payment</h2>
-            <form id="paymentForm">
-                <label for="cardholderName">Cardholder Name</label>
-                <input type="text" id="cardholderName" name="cardholderName" required>
-
-                <label for="cardNumber">Card Number</label>
-                <div id="cardNumber" class="stripe-input"></div>
-
-                <label for="expiry">Expiry Date</label>
-                <div id="expiry" class="stripe-input"></div>
-
-                <label for="cvc">CVC</label>
-                <div id="cvc" class="stripe-input"></div>
-
-                <button type="submit" id="submitPayment">Pay Now</button>
-            </form>
-        </section>
 
     </main>
 
@@ -110,7 +94,7 @@ require_once 'autoload.php';
     <script src="View/js/api.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe('pk_test_51RNwAyPMlf4mSTwftHZQsfjtu4Aq2w1QubPG44BCz5foVUlUkw3fbUkKzCTynUQDLeHQZkhXfpBQRcvaAIEcQa1C00CvJnBUEF');
+        const stripe = Stripe('<?php echo $stripePublishableKey; ?>');
         const elements = stripe.elements();
 
         const cardNumber = elements.create('cardNumber');

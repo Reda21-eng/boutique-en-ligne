@@ -1,6 +1,6 @@
 <?php
 require_once '../autoload.php';
-require_once '../config.php';
+// require_once '../config.php'; // Déjà chargé ci-dessous pour la clé
 
 session_start();
 
@@ -9,6 +9,10 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+// Charger la configuration Stripe pour la clé publique
+$config = require '../config.php';
+$stripePublishableKey = $config['stripe']['publishable_key'];
 
 // // Récupérer les informations du panier depuis la session (Removed)
 // $cart = isset($_SESSION[\'cart\']) ? $_SESSION[\'cart\'] : []; (Removed)
@@ -73,7 +77,7 @@ if (!isset($_SESSION['user_id'])) {
     </main>
 
     <script>
-        const stripe = Stripe('pk_test_51RNwB9IjO4gKCUQInbgs9taS34larglHv0JONgIAyNilTUoMbTITXjJkClYZSPMygBcmARCyO9i5ZYTU1mOihSpG00cInbtrdO');
+        const stripe = Stripe('<?php echo $stripePublishableKey; ?>'); // Utiliser la clé publique de la config
         const elements = stripe.elements();
         let currentTotalAmount = 0; // Variable to store the total in cents
 

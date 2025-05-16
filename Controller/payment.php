@@ -6,13 +6,17 @@ session_start();
 
 header('Content-Type: application/json');
 
-// Ensure STRIPE_SECRET_KEY is defined in config.php
-// if (!defined('STRIPE_SECRET_KEY')) {
-//     echo json_encode(['status' => 'error', 'message' => 'Stripe secret key is not configured.']);
-//     exit;
-// }
+// Charger la configuration Stripe
+$config = require '../config.php';
+$stripeSecretKey = $config['stripe']['secret_key'];
 
-\Stripe\Stripe::setApiKey("sk_test_51RNwAyPMlf4mSTwfokuMaCATHvDuPGesJ0WKmmGHDV9mefEYQlOrA6mGJlD0EleL5wwD4ztOBMAcON8GeA8gUpEn00tYR3hA8g");
+if (empty($stripeSecretKey)) {
+    echo json_encode(['status' => 'error', 'message' => 'Stripe secret key is not configured.']);
+    exit;
+}
+
+// \Stripe\Stripe::setApiKey("sk_test_51RNwAyPMlf4mSTwfokuMaCATHvDuPGesJ0WKmmGHDV9mefEYQlOrA6mGJlD0EleL5wwD4ztOBMAcON8GeA8gUpEn00tYR3hA8g");
+\Stripe\Stripe::setApiKey($stripeSecretKey);
 
 // Get the raw POST data
 $json_str = file_get_contents('php://input');

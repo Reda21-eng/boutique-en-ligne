@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once '../autoload.php';
-require_once '../Model/database.php'; // Assurez-vous que le chemin est correct
+require_once '../Model/database.php';
+require_once '../config.php';
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
