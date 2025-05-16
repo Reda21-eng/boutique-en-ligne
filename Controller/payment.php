@@ -7,12 +7,12 @@ session_start();
 header('Content-Type: application/json');
 
 // Ensure STRIPE_SECRET_KEY is defined in config.php
-if (!defined('STRIPE_SECRET_KEY')) {
-    echo json_encode(['status' => 'error', 'message' => 'Stripe secret key is not configured.']);
-    exit;
-}
+// if (!defined('STRIPE_SECRET_KEY')) {
+//     echo json_encode(['status' => 'error', 'message' => 'Stripe secret key is not configured.']);
+//     exit;
+// }
 
-\Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+\Stripe\Stripe::setApiKey("sk_test_51RNwAyPMlf4mSTwfokuMaCATHvDuPGesJ0WKmmGHDV9mefEYQlOrA6mGJlD0EleL5wwD4ztOBMAcON8GeA8gUpEn00tYR3hA8g");
 
 // Get the raw POST data
 $json_str = file_get_contents('php://input');
@@ -36,7 +36,7 @@ try {
     // Create a PaymentIntent with amount and currency
     $intent = \Stripe\PaymentIntent::create([
         'amount' => $amount_in_cents,
-        'currency' => 'usd', // Change to your desired currency
+        'currency' => 'eur', // Change to your desired currency
         'payment_method' => $payment_method_id,
         'confirmation_method' => 'manual', // We will confirm it manually
         'confirm' => true, // Confirm the PaymentIntent immediately

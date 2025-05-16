@@ -110,7 +110,7 @@ require_once 'autoload.php';
     <script src="View/js/api.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe('votre_cle_publiable');
+        const stripe = Stripe('pk_test_51RNwAyPMlf4mSTwftHZQsfjtu4Aq2w1QubPG44BCz5foVUlUkw3fbUkKzCTynUQDLeHQZkhXfpBQRcvaAIEcQa1C00CvJnBUEF');
         const elements = stripe.elements();
 
         const cardNumber = elements.create('cardNumber');
