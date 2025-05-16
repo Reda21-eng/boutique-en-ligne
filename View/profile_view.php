@@ -47,7 +47,7 @@ if (!isset($user)) {
 
     <main>
         <div class="profile-container">
-            <h2>Mon Profil</h2>
+            <h2>My Profile</h2>
             <div class="profile-info">
                 <p><strong>Nom d'utilisateur :</strong> <?php echo htmlspecialchars($user['username']); ?></p>
                 <p><strong>Email :</strong> <?php echo htmlspecialchars($user['email']); ?></p>
