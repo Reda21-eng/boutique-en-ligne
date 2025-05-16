@@ -69,22 +69,8 @@ $stripePublishableKey = $config['stripe']['publishable_key']; // Récupérer la 
                 <p>Your trusted source for the best manga collection</p>
             </div>
             <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="php/about.php">About Us</a></li>
-                    <li><a href="php/contact.php">Contact</a></li>
-                    <li><a href="php/shipping.php">Shipping Info</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
+             
+          
         <div class="footer-bottom">
             <p>&copy; 2024 Manga Meow. All rights reserved.</p>
         </div>

@@ -46,7 +46,7 @@ function createMangaCard(manga) {
             <div class="manga-info">
                 <h3 class="manga-title">${manga.title}</h3>
                 <p class="manga-price">$${price}</p>
-                <button class="add-to-cart-btn" onclick="addToCart(${manga.mal_id}, '${manga.title}', ${price})">
+                <button class="add-to-cart-btn" onclick="addToCart(${manga.mal_id}, '${manga.title}', ${price})"<>
                     Add to Cart
                 </button>
             </div>
