@@ -45,10 +45,11 @@ $is_logged_in = isset($_SESSION['user_id']);
             <div class="search-section">
                 <h2>Browse Manga</h2>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search manga...">
+                    <input type="text" id="searchInput" placeholder="Search manga..." autocomplete="off">
                     <button id="searchButton">
                         <i class="fas fa-search"></i>
                     </button>
+                    <div id="suggestionsBox" class="suggestions-box"></div>
                 </div>
                 <div class="filter-options">
                     <select id="sortBy">
@@ -129,6 +130,35 @@ $is_logged_in = isset($_SESSION['user_id']);
                     currentSearch = searchInput.value.trim();
                     currentPage = 1;
                     loadMangaCatalog();
+                    clearSuggestions(); // Clear suggestions on explicit search
+                }
+            });
+
+            // Autocomplete functionality
+            searchInput.addEventListener('input', async () => {
+                const query = searchInput.value.trim();
+                const suggestionsBox = document.getElementById('suggestionsBox');
+
+                if (query.length < 2) { // Only search if query is at least 2 characters
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.style.display = 'none';
+                    return;
+                }
+
+                try {
+                    const results = await mangaAPI.searchManga(query);
+                    displaySuggestions(results, suggestionsBox);
+                } catch (error) {
+                    console.error('Error fetching suggestions:', error);
+                    suggestionsBox.innerHTML = '<div class="suggestion-item-error">Erreur lors de la récupération des suggestions.</div>';
+                    suggestionsBox.style.display = 'block';
+                }
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-box')) {
+                    clearSuggestions();
                 }
             });
 
@@ -174,6 +204,40 @@ $is_logged_in = isset($_SESSION['user_id']);
                 loadingSpinner.style.display = 'none';
             }
         }
+
+        function displaySuggestions(results, suggestionsBox) {
+            if (!results || results.length === 0) {
+                suggestionsBox.innerHTML = '<div class="suggestion-item-none">Aucune suggestion trouvée.</div>';
+                suggestionsBox.style.display = 'block';
+                return;
+            }
+
+            suggestionsBox.innerHTML = ''; // Clear previous suggestions
+            results.slice(0, 5).forEach(manga => { // Display top 5 suggestions
+                const suggestionItem = document.createElement('div');
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.textContent = manga.title;
+                suggestionItem.addEventListener('click', () => {
+                    document.getElementById('searchInput').value = manga.title;
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.style.display = 'none';
+                    // Optionally, trigger search immediately:
+                    currentSearch = manga.title.trim();
+                    currentPage = 1;
+                    loadMangaCatalog();
+                });
+                suggestionsBox.appendChild(suggestionItem);
+            });
+            suggestionsBox.style.display = 'block';
+        }
+
+        function clearSuggestions() {
+            const suggestionsBox = document.getElementById('suggestionsBox');
+            if (suggestionsBox) {
+                suggestionsBox.innerHTML = '';
+                suggestionsBox.style.display = 'none';
+            }
+        }
     </script>
 
     <style>
@@ -191,6 +255,7 @@ $is_logged_in = isset($_SESSION['user_id']);
             display: flex;
             max-width: 500px;
             margin: 1rem auto;
+            position: relative; /* Moved from .search-box input to here */
         }
 
         .search-box input {
@@ -199,6 +264,7 @@ $is_logged_in = isset($_SESSION['user_id']);
             border: 1px solid #ddd;
             border-radius: 5px 0 0 5px;
             font-size: 1rem;
+            /* position: relative; This was moved */
         }
 
         .search-box button {
@@ -291,6 +357,36 @@ $is_logged_in = isset($_SESSION['user_id']);
 
         .add-to-cart-btn:hover {
             background: #ff5252;
+        }
+
+        .suggestions-box {
+            position: absolute;
+            top: 100%; /* Position below the input */
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+
+        .suggestion-item {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .suggestion-item-none,
+        .suggestion-item-error {
+            padding: 0.5rem;
+            color: #777;
+            text-align: center;
         }
     </style>
 </body>
