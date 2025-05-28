@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'autoload.php';
 $config = require 'config.php'; // Charger la configuration
 $stripePublishableKey = $config['stripe']['publishable_key']; // Récupérer la clé publique
@@ -30,7 +31,6 @@ $stripePublishableKey = $config['stripe']['publishable_key']; // Récupérer la 
                 <li><a href="Controller/catalog.php">Catalog</a></li>
                 <li><a href="Controller/cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                 <?php
-                session_start();
                 if(isset($_SESSION['user_id'])) {
                     echo '<li><a href="Controller/profile.php"><i class="fas fa-user"></i> Profile</a></li>';
                     echo '<li><a href="Controller/logout.php">Logout</a></li>';
